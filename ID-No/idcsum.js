@@ -13,4 +13,3 @@ function id_csum(idnum)
     }
     return (12-(S()%11))%11;
 }
-print(id_csum('63280119790817003')); //should return 6
