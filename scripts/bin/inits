@@ -1,0 +1,5 @@
+#!/bin/bash
+network-setup
+synaptics-setup
+checkgmail &
+start-rtorrent

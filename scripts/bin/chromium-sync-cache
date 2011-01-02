@@ -1,0 +1,9 @@
+#!/bin/bash
+# chromium cache file speed up
+
+STATIC=$HOME/.cache/chromium.bak
+LINK=$HOME/.cache/chromium
+VOLATILE=/dev/shm/$USER/.cache/chromium
+NAME="chromium-cache"
+
+source sync-common

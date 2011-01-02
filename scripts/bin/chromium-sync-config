@@ -1,0 +1,9 @@
+#!/bin/bash
+# chromium config file speed up
+
+STATIC=$HOME/.config/chromium.bak
+LINK=$HOME/.config/chromium
+VOLATILE=/dev/shm/$USER/.config/chromium
+NAME="chromium-config"
+
+source sync-common

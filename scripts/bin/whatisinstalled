@@ -1,0 +1,5 @@
+#!/bin/bash
+all_file=$HOME/Dropbox/whatisinstalled/all
+vim_rel_file=$HOME/Dropbox/whatisinstalled/vim-rel
+pacman -Q > $all_file
+pacman -Qs '\<vim\>' > $vim_rel_file

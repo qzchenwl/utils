@@ -1,0 +1,9 @@
+#!/bin/bash
+# FIREFOX CONFIG FILE SYNC
+
+STATIC=$HOME/.mozilla/firefox.bak
+LINK=$HOME/.mozilla/firefox
+VOLATILE=/dev/shm/$USER/.mozilla/firefox
+NAME="firefox"
+
+source sync-common

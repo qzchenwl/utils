@@ -1,0 +1,41 @@
+#!/bin/bash
+# generate c/c++ tags for libxxx
+
+help ()
+{
+    echo "Usage: libxtags.sh <lib> <language>"
+    echo "language must be one of c,c++"
+    echo "eg. libxtags.sh libfonts c++"
+    exit 1
+}
+
+if [ "$#" != "2" ]; then
+    help
+fi
+
+lib=$1
+lang=$2
+
+case $lang in
+    c)
+        flags="-I __THROW --c-kinds=+lpx --fields=+aS --extra=+q"
+        ;;
+    c++)
+        flags="--c++kinds=+lpx --fields=+iaS --extra=+q"
+        ;;
+esac
+
+pacman -Ql "$lib" || echo "$lib not found" && exit 1
+
+filelist=$(pacman -Ql $lib | grep /usr/include | cut -d " " -f 2) 
+echo $filelist
+echo ''
+for file in $filelist
+do
+	if [ -d "$file" ]; then
+		echo $file is a directory, skip
+		continue
+	fi
+	echo scanning $file
+    ctags $flags -a -f ${lib#lib}tags $file
+done

@@ -1,0 +1,9 @@
+#!/bin/bash
+if [ -z "$1"]
+    echo "Usage: $0 ESSID"
+fi
+sudo ifconfig wlan0 up
+sudo iwconfig wlan0 txpower on
+sudo iwconfig wlan0 essid "$1" # key s:password [1]
+sudo dhclient wlan0
+

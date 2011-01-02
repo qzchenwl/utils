@@ -1,0 +1,4 @@
+#!/bin/bash
+cd $HOME/scripts/localproxy-2.0.0 || return 1
+screen -S proxy -dm ./proxy.py
+

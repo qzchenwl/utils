@@ -1,0 +1,20 @@
+#!/bin/bash
+
+[[ -r $VOLATILE ]] || install -dm777 $VOLATILE
+if [[ `readlink $LINK` != $VOLATILE ]]; then
+    echo "[$NAME] LINK DST " `readlink $LINK`
+    echo "[$NAME] LINK SRC " $VOLATILE
+    echo "[$NAME] link not set"
+    mv $LINK $STATIC
+    ln -sv $VOLATILE $LINK
+fi
+
+if [[ -e $LINK/.unpacked ]]; then
+    echo "[$NAME] copy to disk"
+    rsync -av --delete --exclude .unpacked $LINK/ $STATIC
+else
+    echo "[$NAME] copy to ram"
+    rsync -av $STATIC/ $VOLATILE
+    touch $VOLATILE/.unpacked
+fi
+

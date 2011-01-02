@@ -1,0 +1,10 @@
+#!/bin/bash
+i=0
+while read mac
+do
+    echo "mac = $mac"
+    echo "====== RECORD $i ======" >> rst.txt
+    ip_mac_name.sh $mac 54740000 54749999 >> rst.txt
+    echo "" >> rst.txt
+    let "i=i+1"
+done < macs.txt

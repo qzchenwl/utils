@@ -1,0 +1,10 @@
+#!/bin/bash
+#export DISPLAY=:0.0
+
+synclient \
+	TapButton1=1 \
+	TapButton2=3 \
+	TapButton3=0 \
+	CircularScrolling=1 \
+	CircScrollTrigger=3 \
+	HorizTwoFingerScroll=1

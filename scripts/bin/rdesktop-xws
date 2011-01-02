@@ -1,0 +1,2 @@
+#!/bin/bash
+rdesktop 59.78.11.54 -u xws -p xwsxws -r sound:local -r clipboard:CLIPBOARD -x l -f > /dev/null 2>&1 &

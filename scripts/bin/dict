@@ -1,0 +1,6 @@
+#!/bin/bash
+result="$(w3m -dump "http://www.google.com/dictionary?langpair=en|zh-CN&q=$1&hl=zh-CN&aq=f" | \
+    sed -e '1,/英语字典/d' -e '/更多.*搜索结果/,$d' -e '/^[ \t]*$/d' -e '/•/d' -e 's/^[ \t]*//g')" 
+echo "$1"
+echo "$result"
+notify-send "$1" "$result"

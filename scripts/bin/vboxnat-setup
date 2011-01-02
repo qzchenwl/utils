@@ -1,0 +1,8 @@
+#!/bin/bash
+sudo tunctl -t vboxtap0 -u chenwl
+sudo brctl addbr br0
+sudo brctl addif br0 vboxtap0
+sudo ifconfig br0 192.168.0.254 netmask 255.255.255.0 up
+sudo ifconfig vboxtap0 up
+sudo sysctl net.ipv4.ip_forward=1
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE

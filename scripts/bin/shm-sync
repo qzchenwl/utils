@@ -1,0 +1,4 @@
+#!/bin/bash
+/home/chenwl/scripts/bin/chromium-sync-config
+/home/chenwl/scripts/bin/chromium-sync-cache
+/home/chenwl/scripts/bin/firefox-sync

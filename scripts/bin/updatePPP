@@ -1,0 +1,23 @@
+#!/bin/bash
+dir="$HOME/Pictures/BBS"
+new_list="new.txt"
+old_list="old.txt"
+diff_list="diff.txt"
+new_tmp="new.tmp"
+old_tmp="old.tmp"
+log="update.log"
+
+if [ "$1" ]; then dir=$1; fi
+cd $dir || exit 1
+curl -s 'http://bbs.sjtu.edu.cn/bbsrss?board=PPPerson' | grep 'IMG SRC' \
+	| sed 's/.*IMG SRC="\([^"]*\).*/\1/g' > $new_tmp
+sort $new_tmp > $new_list
+if [ ! -f $old_list ]; then touch $old_list; fi
+comm -13 $old_list $new_list > $diff_list
+if [ "$(wc -l < $diff_list)" != "0" ]; then
+	echo "[$(date)]" >> $log
+	cat $diff_list >> $log
+	wget -qi $diff_list
+	cat $old_list $diff_list > $old_tmp
+	sort $old_tmp > $old_list
+fi
